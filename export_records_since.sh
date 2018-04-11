@@ -15,7 +15,7 @@ TIMESTAMP="$1"
 
 mkdir -p "$EXPDIR"
 
-koha-shell koha -c "(cd $KOHAPATH; ./misc/export_records.pl --record-type=bibs --date=\"$TIMESTAMP\" --include_deleted $EXPORTRECORDSOPTS)" > $EXPDIR/$FILENAME
+$KOHASHELL koha -c "(cd $KOHAPATH; ./misc/export_records.pl --record-type=bibs --date=\"$TIMESTAMP\" --include_deleted $EXPORTRECORDSOPTS)" > $EXPDIR/$FILENAME
 
 cd $EXPDIR
 

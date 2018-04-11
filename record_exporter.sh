@@ -26,7 +26,7 @@ FILENAME="$FILEPREFIX$FILETIMESTAMP$RANGESUFFIX$FILEEXT"
 TARFILE="$FILEPREFIX$FILETIMESTAMP$RANGESUFFIX$TAREXT"
 
 mkdir -p "$EXPDIR"
-koha-shell koha -c "(cd $KOHAPATH; ./misc/export_records.pl --record-type=bibs --starting_biblionumber=$STARTBIB --ending_biblionumber=$ENDBIB $EXPORTRECORDSOPTS)" > $EXPDIR/$FILENAME
+$KOHASHELL koha -c "(cd $KOHAPATH; ./misc/export_records.pl --record-type=bibs --starting_biblionumber=$STARTBIB --ending_biblionumber=$ENDBIB $EXPORTRECORDSOPTS)" > $EXPDIR/$FILENAME
 cd $EXPDIR
 tar $TAROPTS $TARFILE $FILENAME
 chown $PRIMOUSER:$PRIMOGROUP $TARFILE
