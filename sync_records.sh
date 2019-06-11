@@ -8,7 +8,7 @@ if [ -f "$last_sync_date_file" ]; then
     last_sync_date=$(cat "$last_sync_date_file")
     # TODO: Error handling, right nog koha-shell will fail silently
     $script_dir/export_records_since.sh "$last_sync_date"
-    echo "$this_sync_date" > last_sync_date
+    echo "$this_sync_date" > "$last_sync_date_file"
 else
     # No file found, perform full export
     $script_dir/export_records.sh
