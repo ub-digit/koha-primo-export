@@ -16,3 +16,5 @@ EXPDIR="$EXPROOT/$EXPTMP"
 KOHAPATH="/home/koha/koha-production/current"
 KOHASHELL="/usr/sbin/koha-shell"
 EXPORTRECORDSOPTS="--dont_export_items --marc_conditions=942n!=1"
+
+DATA_DIR="/opt/koha-primo-export"

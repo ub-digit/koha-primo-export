@@ -1,6 +1,8 @@
 #!/bin/bash
 script_dir="$(dirname "$(readlink -f "$0")")"
-last_sync_date_file="$script_dir/last_sync_date"
+source "$script_dir/config"
+
+last_sync_date_file="$DATA_DIR/last_sync_date"
 this_sync_date="$(date +"%Y-%m-%d %H:%M:%S")"
 
 if [ -f "$last_sync_date_file" ]; then
