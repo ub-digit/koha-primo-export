@@ -32,5 +32,4 @@ cd $exp_dir
 tar $tar_opts $tar_file $filename
 chown $primo_user:$primo_group $tar_file
 mv $tar_file "{$export_dir}/full/"
-cd $exp_root
-rm -Rf $exp_tmp
+rm -Rf "$exp_root/$exp_tmp"
