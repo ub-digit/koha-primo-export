@@ -12,6 +12,7 @@ then
 fi
 
 timestamp="$1"
+mkdir -p "$exp_dir"
 
 $koha_shell $koha_instance -c "(cd $koha_path; ./misc/export_records.pl --record-type=bibs --date=\"$timestamp\" --include_deleted $export_records_opts)" > $exp_dir/$filename
 
