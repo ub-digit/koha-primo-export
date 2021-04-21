@@ -1,9 +1,9 @@
 #!/bin/bash
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-source "$SCRIPT_DIR/config"
+script_dir="$(dirname "$(readlink -f "$0")")"
+source "$script_dir/config"
 
-FILETIMESTAMP="$(date +"%Y-%m-%d-%H-%M-%S")"
-FILENAME="$FILEPREFIX$FILETIMESTAMP$FILEEXT"
+file_timestamp="$(date +"%Y-%m-%d-%H-%M-%S")"
+filename="$file_prefix$file_timestamp$file_ext"
 
 if test "x$1" = "x"
 then
@@ -11,22 +11,19 @@ then
     exit 0
 fi
 
-TIMESTAMP="$1"
+timestamp="$1"
 
-mkdir -p "$EXPDIR"
+$koha_shell $koha_instance -c "(cd $koha_path; ./misc/export_records.pl --record-type=bibs --date=\"$timestamp\" --include_deleted $export_records_opts)" > $exp_dir/$filename
 
-$KOHASHELL koha -c "(cd $KOHAPATH; ./misc/export_records.pl --record-type=bibs --date=\"$TIMESTAMP\" --include_deleted $EXPORTRECORDSOPTS)" > $EXPDIR/$FILENAME
-
-cd $EXPDIR
+cd $exp_dir
 
 # TODO: Option for --batch_size??
-BATCHFILES=$($SCRIPT_DIR/marc_split_into_batches.pl --input_file="$FILENAME" --batch_size=5000 --file_extension="$FILEEXT" --print)
-for BATCHFILE in $BATCHFILES; do
-    TARFILE="$BATCHFILE$TAREXT";
-    tar $TAROPTS "$TARFILE" "$BATCHFILE"
-    chown $PRIMOUSER:$PRIMOGROUP "$TARFILE"
-    mv "$TARFILE" "$UPDATESDIR"/
+batch_files=$($script_dir/marc_split_into_batches.pl --input_file="$filename" --batch_size=5000 --file_extension="$file_ext" --print)
+for batch_file in $batch_files; do
+    tar_file="$batch_file$tar_ext";
+    tar $tar_opts "$tar_file" "$batch_file"
+    chown $primo_user:$primo_group "$tar_file"
+    mv "$tar_file" "${export_dir}/updates/"
 done
 
-cd $EXPROOT
-rm -Rf $EXPTMP
+rm -Rf "$exp_root/$exp_tmp"

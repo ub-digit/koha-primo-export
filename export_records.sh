@@ -1,7 +1,8 @@
 #!/bin/bash
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+# This script will export all records in batches
+script_dir="$(dirname "$(readlink -f "$0")")"
 IFS=$'\n'
 # TODO: Merge with export_records_p
-for BATCH in $($KOHASHELL koha -c "cd \"$KOHAPATH\"; ./misc/record_batches.pl"); do
-    eval $SCRIPT_DIR/record_exporter.sh $BATCH
+for batch in $($koha_shell koha -c "cd \"$koha_path\"; ./misc/record_batches.pl"); do
+    eval $script_dir/record_exporter.sh $batch
 done

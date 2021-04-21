@@ -1,8 +1,8 @@
 #!/bin/bash
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-source "$SCRIPT_DIR/config"
+script_dir="$(dirname "$(readlink -f "$0")")"
+source "$script_dir/config"
 
-FILETIMESTAMP="$(date +"%Y-%m-%d-%H-%M-%S")"
+file_timestamp="$(date +"%Y-%m-%d-%H-%M-%S")"
 
 if test "x$2" = "x"
 then
@@ -10,26 +10,27 @@ then
     exit 0
 fi
 
-STARTBIB="$1"
-ENDBIB="$2"
-RANGESUFFIX=""
+start_bib="$1"
+end_bib="$2"
+range_suffix=""
 if [ -n "$3" ]; then
     if [ "$3" == "--range-suffix" ]; then
-        RANGESUFFIX=".$STARTBIB-$ENDBIB"
+        range_suffix=".$start_bib-$end_bib"
     else
         echo "Unknown option: $3"
         exit 1
     fi
 fi
 
-FILENAME="$FILEPREFIX$FILETIMESTAMP$RANGESUFFIX$FILEEXT"
-TARFILE="$FILEPREFIX$FILETIMESTAMP$RANGESUFFIX$TAREXT"
+filename="$file_prefix$file_timestamp$range_suffix$file_ext"
+tar_file="$file_prefix$file_timestamp$range_suffix$tar_ext"
 
-mkdir -p "$EXPDIR"
-$KOHASHELL koha -c "(cd $KOHAPATH; ./misc/export_records.pl --record-type=bibs --starting_biblionumber=$STARTBIB --ending_biblionumber=$ENDBIB $EXPORTRECORDSOPTS)" > $EXPDIR/$FILENAME
-cd $EXPDIR
-tar $TAROPTS $TARFILE $FILENAME
-chown $PRIMOUSER:$PRIMOGROUP $TARFILE
-mv $TARFILE "$UPDATESDIR"/
-cd $EXPROOT
-rm -Rf $EXPTMP
+mkdir -p "$exp_dir"
+
+$koha_shell $koha_instance -c "(cd $koha_path; ./misc/export_records.pl --record-type=bibs --starting_biblionumber=$start_bib --ending_biblionumber=$end_bib $export_records_opts)" > $exp_dir/$filename
+cd $exp_dir
+tar $tar_opts $tar_file $filename
+chown $primo_user:$primo_group $tar_file
+mv $tar_file "{$export_dir}/full/"
+cd $exp_root
+rm -Rf $exp_tmp

@@ -1,20 +1,20 @@
 UPDATESDIR="/var/lib/koha/primo/koha/updates"
 
-TAREXT=".tar.gz"
-TAROPTS="czf"
+tar_ext=".tar.gz"
+tar_opts="czf"
 
-FILEPREFIX="46GUB-delta-"
-FILEEXT=".marc"
+file_prefix="46GUB-delta-"
+file_ext=".marc"
 
-PRIMOUSER="primo"
-PRIMOGROUP="primo"
+primo_user="primo"
+primo_group="primo"
 
-EXPTMP="$$"
-EXPROOT="/var/tmp"
-EXPDIR="$EXPROOT/$EXPTMP"
+exp_tmp="$$"
+exp_root="/var/tmp"
+exp_dir="$exp_root/$exp_tmp"
 
-KOHAPATH="/home/koha/koha-production/current"
-KOHASHELL="/usr/sbin/koha-shell"
-EXPORTRECORDSOPTS="--dont_export_items --marc_conditions=942n!=1"
+koha_path="/home/koha/koha-production/current"
+koha_shell="/usr/sbin/koha-shell"
+export_records_opts="--dont_export_items --marc_conditions=942n!=1"
 
-DATA_DIR="/opt/koha-primo-export"
+data_dir="/opt/koha-primo-export"
