@@ -15,6 +15,6 @@ exp_dir="$exp_root/$exp_tmp"
 
 koha_path="/home/koha/koha-production/current"
 koha_shell="/usr/sbin/koha-shell"
-export_records_opts="--dont_export_items --marc_conditions=942n!=1"
+export_records_opts="--dont_export_items --set_deleted_marc_conditions=942n=1"
 
 data_dir="/opt/koha-primo-export"
